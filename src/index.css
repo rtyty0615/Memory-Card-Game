@@ -1,0 +1,43 @@
+.app-container {
+  padding: 20px 80px;
+}
+
+.upper-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.record h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 90px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 30px;
+  margin: 0;
+}
+
+p {
+  font-size: 70px;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  place-items: center;
+}
