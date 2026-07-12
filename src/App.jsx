@@ -1,7 +1,29 @@
-// import { useState } from 'react'
+import { useEffect, useState } from "react";
+import { Image } from "./Image";
+// import { listPokemon } from "./listPokemon";
 import "./App.css";
 
 function App() {
+  const [imgSrc, setImgSrc] = useState(null);
+
+  useEffect(() => {
+    async function getPokeImg() {
+      try {
+        const response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon/pikachu",
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const pokeImg = await response.json();
+        setImgSrc(pokeImg.sprites.front_default);
+      } catch (error) {
+        console.error("Error fetching the image:", error);
+      }
+    }
+    getPokeImg();
+  }, []);
+
   return (
     <>
       <div className="app-container">
@@ -19,10 +41,7 @@ function App() {
           </h3>
         </header>
         <main>
-          <div>
-            <img></img>
-            <p>hi</p>
-          </div>
+          <Image imgSrc={imgSrc}></Image>
           <div>
             <img></img>
             <p>hi</p>
