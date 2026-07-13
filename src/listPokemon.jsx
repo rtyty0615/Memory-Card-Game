@@ -1,4 +1,4 @@
-export const listPokemon = [
+export const initialListPokemon = [
   { name: "Pikachu", id: crypto.randomUUID() },
   { name: "Psyduck", id: crypto.randomUUID() },
   { name: "Ekans", id: crypto.randomUUID() },
