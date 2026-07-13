@@ -5,14 +5,27 @@ import "./App.css";
 
 function App() {
   const [listPokemon, setListPokemon] = useState(initialListPokemon);
+  const [clickArray, setClickArray] = useState([]);
+  const [highestScore, setHighestScore] = useState(0);
 
   const handleGridClick = (event) => {
     const btn = event.target.closest("button");
     if (!btn) return;
     const btnId = btn.dataset.id;
-    console.log("Clicked:", btnId);
+    if (clickArray.includes(btnId)) {
+      if (clickArray.length > highestScore) {
+        setHighestScore(clickArray.length);
+      }
+      setClickArray([]);
+    } else if (clickArray.length === listPokemon.length - 1) {
+      alert("You win!");
+      setHighestScore(clickArray.length + 1);
+      setClickArray([]);
+    } else {
+      setClickArray((prev) => [...prev, btnId]);
+    }
+
     const newListPokemon = shuffle(listPokemon);
-    console.log("new List: " + newListPokemon[0].name);
     setListPokemon(newListPokemon);
   };
 
@@ -32,8 +45,8 @@ function App() {
           <div className="upper-container">
             <h1>Memory Card Game</h1>
             <div className="record">
-              <h2>Score: 0</h2>
-              <h2>Best Score: 0</h2>
+              <h2>Score: {clickArray.length}</h2>
+              <h2>Best Score: {highestScore}</h2>
             </div>
           </div>
           <h3>

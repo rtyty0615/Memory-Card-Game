@@ -4,7 +4,7 @@ export function ListImage(props) {
   return (
     <ul onClick={props.onClickBtn}>
       {props.data.map((pokemonItem) => {
-        return <Image key={pokemonItem.id} name={pokemonItem.name} />;
+        return <Image key={pokemonItem.name} name={pokemonItem.name} />;
       })}
     </ul>
   );
@@ -33,7 +33,7 @@ function Image({ name }) {
   return (
     <li>
       <button type="button" data-id={nameLower}>
-        <img src={imgSrc}></img>
+        <img src={imgSrc} alt={name}></img>
         <p>{name}</p>
       </button>
     </li>
