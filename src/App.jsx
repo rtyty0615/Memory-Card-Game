@@ -4,6 +4,13 @@ import { listPokemon } from "./listPokemon";
 import "./App.css";
 
 function App() {
+  const handleGridClick = (event) => {
+    const btn = event.target.closest("button");
+    if (!btn) return;
+    const btnId = btn.dataset.id;
+    console.log("Clicked:", btnId);
+  };
+
   return (
     <>
       <div className="app-container">
@@ -21,7 +28,10 @@ function App() {
           </h3>
         </header>
         <main>
-          <ListImage data={listPokemon}></ListImage>
+          <ListImage
+            data={listPokemon}
+            onClickBtn={handleGridClick}
+          ></ListImage>
         </main>
       </div>
     </>

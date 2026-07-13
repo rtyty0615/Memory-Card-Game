@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export function ListImage(props) {
   return (
-    <ul>
+    <ul onClick={props.onClickBtn}>
       {props.data.map((pokemonItem) => {
         return <Image key={pokemonItem.id} name={pokemonItem.name} />;
       })}
@@ -10,13 +10,14 @@ export function ListImage(props) {
   );
 }
 
-export function Image({ name }) {
+function Image({ name }) {
   const [imgSrc, setImgSrc] = useState(null);
+  const nameLower = name.toLowerCase();
   useEffect(() => {
     async function getPokeImg() {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon/" + name.toLowerCase(),
+          "https://pokeapi.co/api/v2/pokemon/" + nameLower,
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -28,11 +29,13 @@ export function Image({ name }) {
       }
     }
     getPokeImg();
-  }, [name]);
+  }, [nameLower]);
   return (
     <li>
-      <img src={imgSrc}></img>
-      <p>{name}</p>
+      <button type="button" data-id={nameLower}>
+        <img src={imgSrc}></img>
+        <p>{name}</p>
+      </button>
     </li>
   );
 }
