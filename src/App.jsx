@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ListImage } from "./Image";
 import { initialListPokemon } from "./listPokemon";
 import "./App.css";
@@ -28,6 +28,36 @@ function App() {
     const newListPokemon = shuffle(listPokemon);
     setListPokemon(newListPokemon);
   };
+
+  useEffect(() => {
+    async function fetchAllPokemonImages() {
+      try {
+        const promises = initialListPokemon.map(async (pokemonItem) => {
+          const nameLower = pokemonItem.name.toLowerCase();
+          const response = await fetch(
+            "https://pokeapi.co/api/v2/pokemon/" + nameLower,
+          );
+
+          if (!response.ok) throw new Error("Fetch failed");
+
+          const pokeImg = await response.json();
+
+          return {
+            ...pokemonItem,
+            imgSrc: pokeImg.sprites.front_default,
+          };
+        });
+
+        const updatedList = await Promise.all(promises);
+
+        setListPokemon(updatedList);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    }
+
+    fetchAllPokemonImages();
+  }, []);
 
   const shuffle = (originalArray) => {
     const shuffledCopy = [...originalArray];
